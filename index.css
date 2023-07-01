@@ -22,11 +22,6 @@ header
   font-size: 18px;
   text-align: center;
 }
-.grid-container
-{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
 .grid-item
 {
   display: inline-block;
