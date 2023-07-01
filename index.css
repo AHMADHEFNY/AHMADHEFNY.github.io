@@ -22,7 +22,11 @@ header
   font-size: 18px;
   text-align: center;
 }
+main{position: relative;
+    top: 20px;}
 .grid-item
 {
   display: inline-block;
+  border: 1px solid black;
+  border-radius:2px;
 }
