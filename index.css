@@ -27,3 +27,9 @@ header
   display: grid;
   grid-template-column: 1fr 1fr 1fr 1fr;
 }
+.grid-item
+{
+  display: inline-block;
+  width: 30px;
+  hieght: 30px;
+}
