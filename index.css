@@ -25,11 +25,11 @@ header
 .grid-container
 {
   display: grid;
-  grid-template-column: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .grid-item
 {
   display: inline-block;
   width: 30px;
-  hieght: 20px;
+  height: 20px;
 }
