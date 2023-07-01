@@ -3,15 +3,20 @@
   background-repeat: no-repeat;
   background-size: 100%;
 }
-header{position:relative;
-      top:50px;}
-.name{
+header
+{
+      position: relative;
+      top:50px;
+}
+.name
+{
   text-align: center;
   font-size: 40px;
   font-family: Helvetica;
 }
 
-.fields{
+.fields
+{
   font-family: Helvetica;
   font-size: 18px;
   text-align: center;
