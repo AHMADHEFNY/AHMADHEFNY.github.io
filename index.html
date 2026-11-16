@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ahmed Hefny Portfolio</title>
+<meta name="description" content="Ahmed Hefny is a data analyst working across fintech, insurance and healthcare data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: an analyst's working surface. The headline figure is a selected spreadsheet cell,
+   projects read as data lineage (input, work, output), career is a to-scale Gantt, skills are a star schema. */
+:root {
+  --bg: #eff4f1;
+  --surface: #fbfdfc;
+  --ink: #12302a;
+  --muted: #4f6961;
+  --line: #c9d7d1;
+  --accent: #0d7a50;
+  --accent-soft: #d3ecdf;
+  --bar-past: #8fada2;
+  --on-accent: #ffffff;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1a17; --surface: #13241f; --ink: #e6f1ec; --muted: #9fb6ad; --line: #2a4139;
+    --accent: #47d298; --accent-soft: #173a2d; --bar-past: #55756a; --on-accent: #06231a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1a17; --surface: #13241f; --ink: #e6f1ec; --muted: #9fb6ad; --line: #2a4139;
+  --accent: #47d298; --accent-soft: #173a2d; --bar-past: #55756a; --on-accent: #06231a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin-inline: auto; }
+h1, h2, h3, p, dl, dd, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.mono { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0; }
+.label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* Top bar */
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-block: 24px; }
+.top strong { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 0.9375rem; }
+.top nav a { text-decoration: none; color: var(--muted); }
+.top nav a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { display: grid; gap: 40px; padding-block: 40px 72px; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6.2vw, 4.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+.cell {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.14em;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 3px var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.cell::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 11px;
+  height: 11px;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+.hero-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px 48px; align-items: start; }
+.portrait { margin: 0; width: 220px; display: grid; gap: 12px; }
+.photo { position: relative; display: block; }
+.photo img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; box-shadow: 0 0 0 3px var(--accent); }
+.photo::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 11px;
+  height: 11px;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+.portrait figcaption { display: grid; gap: 0; line-height: 1.3; }
+.portrait figcaption b { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; }
+.hero-foot { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px 64px; align-items: start; }
+.lede { font-size: 1.25rem; line-height: 1.5; max-width: 34em; min-width: 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--accent);
+  font: 600 0.9375rem var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--accent);
+}
+.btn.primary { background: var(--accent); color: var(--on-accent); }
+.btn:hover { background: var(--accent-soft); color: var(--ink); }
+.facts { display: grid; gap: 10px; min-width: 0; }
+.facts div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 12px; align-items: baseline; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+
+/* Sections */
+section { padding-block: 64px; border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+.section-head { display: grid; gap: 8px; margin-bottom: 40px; max-width: 42rem; }
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.section-head p { color: var(--muted); }
+
+/* Case studies */
+.cases { display: grid; gap: 56px; }
+.case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: start; }
+.case-text { display: grid; gap: 12px; min-width: 0; }
+.case h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.625rem;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.lineage { min-width: 0; background: var(--surface); border: 1px solid var(--line); }
+.step { position: relative; display: grid; grid-template-columns: 4.75rem minmax(0, 1fr); gap: 12px; padding: 14px 16px; }
+.step + .step { border-top: 1px solid var(--line); }
+.step + .step::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 16px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  background: var(--surface);
+  transform: rotate(45deg);
+}
+.step p { font-size: 0.9875rem; line-height: 1.45; min-width: 0; }
+.step.out { background: var(--accent-soft); }
+.step .label { padding-top: 3px; }
+.step.out .label { color: var(--ink); }
+.step.out strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.375rem;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  font-variant-numeric: tabular-nums;
+  text-wrap: balance;
+}
+
+.case-shot { grid-column: 1 / -1; margin: 0; display: grid; gap: 8px; min-width: 0; }
+.case-shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+.case-shot figcaption { font-size: 0.875rem; color: var(--muted); }
+
+/* Recommendations */
+.quotes { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+.quote { margin: 0; display: grid; gap: 16px; min-width: 0; }
+.quote blockquote { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.3125rem; line-height: 1.35; letter-spacing: -0.008em; }
+.quote figcaption { display: grid; gap: 1px; font-size: 0.9375rem; line-height: 1.4; }
+.quote figcaption b { font-weight: 600; }
+.quote figcaption span { color: var(--muted); }
+.quotes-link { margin-top: 28px; font-size: 0.9375rem; }
+
+/* Career */
+.story { display: grid; gap: 14px; max-width: 42rem; margin-bottom: 48px; }
+.gantt { display: grid; gap: 0; }
+.axis, .role { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 48px; }
+.ticks { position: relative; height: 1.5rem; }
+.ticks span { position: absolute; top: 0; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.role { padding-block: 24px; border-top: 1px solid var(--line); align-items: center; }
+.role-text { display: grid; gap: 6px; min-width: 0; }
+.role h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; line-height: 1.25; }
+.role .where { font-weight: 600; font-size: 1rem; }
+.role .desc { font-size: 0.9875rem; color: var(--muted); max-width: 34em; }
+.track {
+  position: relative;
+  height: 28px;
+  background-image: repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px calc(100% / 7));
+  border-right: 1px solid var(--line);
+}
+.bar { position: absolute; top: 4px; bottom: 4px; background: var(--bar-past); }
+.bar.part { background: repeating-linear-gradient(135deg, var(--bar-past) 0 5px, transparent 5px 9px); box-shadow: inset 0 0 0 1px var(--bar-past); }
+.bar.now { background: var(--accent); }
+.bar.now::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 9px solid var(--accent);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transform: translateY(-50%);
+}
+
+/* Star schema */
+.schema { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr); gap: 32px 48px; align-items: stretch; }
+.tbl { position: relative; background: var(--surface); border: 1px solid var(--line); min-width: 0; align-self: center; }
+.tbl header { padding: 8px 14px; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 500; }
+.tbl li { display: grid; gap: 1px; padding: 8px 14px; font-size: 0.9375rem; line-height: 1.35; }
+.tbl li + li { border-top: 1px solid var(--line); }
+.tbl li small { font-size: 0.8125rem; color: var(--muted); }
+.fact { grid-column: 2; grid-row: 1 / span 2; align-self: stretch; display: flex; flex-direction: column; border: 2px solid var(--accent); }
+.fact header { background: var(--accent); color: var(--on-accent); border-bottom: 0; }
+.fact ul { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.fact li { padding-block: 14px; }
+.fact b { font-family: var(--font-display); font-weight: 800; font-size: 1.875rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.dim.l::after, .dim.r::after { content: ""; position: absolute; top: 50%; width: 48px; border-top: 2px solid var(--accent); }
+.dim.l::after { left: 100%; }
+.dim.r::after { right: 100%; }
+.d1 { grid-column: 1; grid-row: 1; }
+.d2 { grid-column: 3; grid-row: 1; }
+.d3 { grid-column: 1; grid-row: 2; }
+.d4 { grid-column: 3; grid-row: 2; }
+
+/* Education */
+.creds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 48px; }
+.creds > div { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.creds li { padding-block: 10px; border-top: 1px solid var(--line); font-size: 0.9875rem; line-height: 1.4; }
+.creds li b { display: block; font-weight: 600; }
+.creds li span { color: var(--muted); font-size: 0.9375rem; }
+
+/* Contact */
+.contact { padding-block: 72px 64px; }
+.contact h2 { font-size: clamp(2.25rem, 6vw, 4.25rem); font-weight: 800; letter-spacing: -0.03em; max-width: 16ch; margin-block: 8px 16px; }
+.contact-sub { max-width: 34em; margin-bottom: 28px; color: var(--muted); }
+.contact-row { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; }
+#email { font-family: var(--font-mono); font-size: 1.0625rem; overflow-wrap: anywhere; user-select: all; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 20px; color: var(--muted); }
+footer { padding-block: 24px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
+
+@media (max-width: 820px) {
+  .hero { padding-block: 16px 56px; }
+  .hero-top { grid-template-columns: minmax(0, 1fr); }
+  .wide-br { display: none; }
+  .portrait { order: -1; width: 100%; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 18px; }
+  .hero-foot, .case, .axis, .role, .quotes { grid-template-columns: minmax(0, 1fr); }
+  .axis > :first-child { display: none; }
+  .creds { grid-template-columns: minmax(0, 1fr); }
+  .schema { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .fact, .d1, .d2, .d3, .d4 { grid-column: 1; grid-row: auto; }
+  .fact { order: -1; }
+  .fact ul { flex-direction: row; flex-wrap: wrap; }
+  .fact li { flex: 1 1 40%; }
+  .fact li + li { border-top: 0; }
+  .tbl { align-self: stretch; }
+  .dim.l::after, .dim.r::after { left: 24px; right: auto; top: auto; bottom: 100%; width: 0; height: 28px; border-top: 0; border-left: 2px solid var(--accent); }
+  section { padding-block: 48px; }
+  .lede { font-size: 1.125rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta property="og:title" content="Ahmed Hefny | Data Analyst">
+<meta property="og:description" content="Data analyst working across fintech, insurance and healthcare data.">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <strong>Ahmed Hefny</strong>
+    <nav aria-label="Page sections">
+      <a href="#work">Work</a>
+      <a href="#recommendations">Recommendations</a>
+      <a href="#career">Career</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="hero-top">
+        <h1>Making complex data<br class="wide-br"> <span class="cell">clear</span>, trusted,<br class="wide-br"> and useful.</h1>
+        <figure class="portrait">
+          <span class="photo"><img src="ahmed-hefny.jpg" alt="Portrait of Ahmed Hefny" width="560" height="560"></span>
+          <figcaption><b>Ahmed Hefny</b><span>Data Analyst</span></figcaption>
+        </figure>
+      </div>
+      <div class="hero-foot">
+        <div class="lede">
+          <p>I started as a pharmacist and moved into data on purpose. In 4+ years across healthcare, insurance and fintech, I've built data models, automated slow manual reporting, and created tools that people use in their daily work.</p>
+          <div class="cta">
+            <a class="btn primary" href="#work">See selected work</a>
+            <a class="btn" href="https://www.linkedin.com/in/ahmadhefny">LinkedIn</a>
+          </div>
+        </div>
+        <dl class="facts">
+          <div><dt class="label">Now</dt><dd>Data Analyst, Cashi</dd></div>
+          <div><dt class="label">Stack</dt><dd>SQL, Python, Redshift, BigQuery, Looker Studio, Power BI, Metabase</dd></div>
+          <div><dt class="label">Background</dt><dd>Pharmacy, then computer science</dd></div>
+          <div><dt class="label">Based in</dt><dd>Giza, Egypt. Works in Arabic and English</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <section id="work">
+      <div class="section-head">
+        <span class="label">Selected work</span>
+        <h2>Six projects, traced from raw data to result</h2>
+      </div>
+      <div class="cases">
+
+        <article class="case">
+          <div class="case-text">
+            <span class="label">Fintech · Cashi · 2025 to present</span>
+            <h3>From dashboard timeouts to under 5 seconds</h3>
+            <p>Cashi's reporting runs on about 600-700 million records. Looker Studio dashboards would load for 2 to 5 minutes and then time out, and Power BI reports were slow to open.</p>
+            <p>I moved the Looker Studio dashboards to Extract Data sources, which cache the data and refresh on a schedule. I also created materialized views in Amazon Redshift and restructured Power BI data models and reports.</p>
+          </div>
+          <div class="lineage">
+            <div class="step"><span class="label">Input</span><p>About 600-700M records behind Looker Studio and Power BI reports</p></div>
+            <div class="step"><span class="label">Work</span><p>Extract Data sources, SQL optimization, Redshift materialized views and leaner Power BI models</p></div>
+            <div class="step out"><span class="label">Output</span><p><strong>2-5 minutes and a timeout, now under 5 seconds</strong>Dashboards now load as soon as they open</p></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-text">
+            <span class="label">Insurance · Beyond Insurance Brokerage · 2023 to 2025</span>
+            <h3>Automating updates for 50&#8209;70 customer dashboards</h3>
+            <p>When I joined, the team updated its customer dashboards by hand, which took about 7 days each time.</p>
+            <p>I created a central sheet of policies and customers, then wrote a Python script that works through it. For each policy, it opens the system, extracts the data, uploads it to the right sheet, and records that the dashboard is updated.</p>
+          </div>
+          <div class="lineage">
+            <div class="step"><span class="label">Input</span><p>Policy and customer records, plus data held in the company's system</p></div>
+            <div class="step"><span class="label">Work</span><p>Python automation with gspread and PyAutoGUI, feeding Google Sheets and Looker Studio dashboards</p></div>
+            <div class="step out"><span class="label">Output</span><p><strong>7 days down to 4 hours</strong>The update now runs unattended once started</p></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-text">
+            <span class="label">Fintech · Cashi · 2025 to present</span>
+            <h3>A daily performance report that writes and sends itself</h3>
+            <p>I automated a daily summary of business performance for leadership. Every morning, a scheduled Windows task runs my scripts and a Claude prompt, then sends the finished report to Google Workspace.</p>
+            <p>The CEO and CTO loved the report, and I received a bonus for it.</p>
+          </div>
+          <div class="lineage">
+            <div class="step"><span class="label">Input</span><p>Daily business performance data</p></div>
+            <div class="step"><span class="label">Work</span><p>Scheduled Windows task running data scripts and a Claude prompt that writes the conclusion</p></div>
+            <div class="step out"><span class="label">Output</span><p><strong>A report every morning, with no manual work</strong>Delivered to the CEO and CTO through Google Workspace</p></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-text">
+            <span class="label">Insurance · Beyond Insurance Brokerage · 2023 to 2025</span>
+            <h3>Loss ratio alerts and fraud analysis</h3>
+            <p>I consolidated policy data in BigQuery and calculated each policy's loss ratio. A Python script then emails the customer when a policy passes a set limit.</p>
+            <p>I also ran fraud detection analysis, using statistical outlier detection and risk scoring based on ICD-10, the international standard for diagnosis codes.</p>
+          </div>
+          <div class="lineage">
+            <div class="step"><span class="label">Input</span><p>Contracts, claims, services and member utilization data</p></div>
+            <div class="step"><span class="label">Work</span><p>BigQuery model, loss ratio calculation, Python email alerts, outlier detection and ICD-10 risk scoring</p></div>
+            <div class="step out"><span class="label">Output</span><p><strong>Customers engaged with the numbers</strong>One customer asked to meet about actions to reduce losses. The analysis also identified high-risk members and abnormal utilization</p></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-text">
+            <span class="label">Healthcare · National Cancer Institute · 2023 to 2025</span>
+            <h3>An IV label app, built from inside the pharmacy</h3>
+            <p>Printing IV medication labels once took 4 dedicated pharmacists. While working part time at the institute, I studied Python seriously and built a desktop app that reads orders from Google Sheets, calculates mL doses from mg, and produces print-ready labels with Arabic text.</p>
+            <p>It targets the dose conversion and patient information errors that came with manual work. It was my first project in real use, and the institute still relies on it.</p>
+          </div>
+          <div class="lineage">
+            <div class="step"><span class="label">Input</span><p>Medication orders in Google Sheets, plus a drug reference sheet</p></div>
+            <div class="step"><span class="label">Work</span><p>Python desktop app with Tkinter, gspread, Pandas and PDF label generation</p></div>
+            <div class="step out"><span class="label">Output</span><p><strong>250-300 labels a day, handled by 1 pharmacist</strong>That pharmacist also covers other duties, where the task once needed 4 people</p></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-text">
+            <span class="label">Graduation project · Computer Science diploma · 2026</span>
+            <h3>PharmAssist: from a label app to a full pharmacy workflow</h3>
+            <p>PharmAssist grew out of the label app. It follows a medication order from physician to pharmacist to nurse. It warns about drug interactions before an order is submitted, records a timestamped history of each status change, and generates labels.</p>
+            <p>I wrote the code and Omar Reda Abdallah wrote the documentation, supervised by Dr. Sara Saad. It's an academic project and has not been deployed in a hospital.</p>
+          </div>
+          <div class="lineage">
+            <div class="step"><span class="label">Input</span><p>Demo patients, drugs, drug interactions and medication orders</p></div>
+            <div class="step"><span class="label">Work</span><p>Django, SQLite and Bootstrap, with separate access for administrators, physicians, pharmacists and nurses</p></div>
+            <div class="step out"><span class="label">Output</span><p><strong>Graded 99/100</strong>A working web app covering 16 documented use cases</p></div>
+          </div>
+          <figure class="case-shot">
+            <img src="pharmassist-dashboard.jpg" alt="PharmAssist pharmacy operations dashboard showing order counts by status and a list of medication orders" width="1200" height="807" loading="lazy">
+            <figcaption>PharmAssist's operations dashboard, shown with made-up patients.</figcaption>
+          </figure>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="recommendations">
+      <div class="section-head">
+        <span class="label">Recommendations</span>
+        <h2>What people I've worked with say</h2>
+      </div>
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote>"I had the pleasure of working with Ahmed at Cashi, and what always stood out to me was his ability to look beyond the numbers and understand the business behind them. … He doesn't simply deliver what is asked of him. He actively identifies opportunities, proposes initiatives, and looks for ways to improve business performance."</blockquote>
+          <figcaption><b>Ahmed Refaat</b><span>Marketing Director. We worked together at Cashi</span></figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>"During that time he made several projects from automated ETL pipelines which saved us all a lot of time, to several large dataset dashboards which were quite eye opening."</blockquote>
+          <figcaption><b>Hassan Aboulhamayed</b><span>Data analyst colleague at Beyond Insurance Brokerage</span></figcaption>
+        </figure>
+      </div>
+      <p class="quotes-link"><a href="https://www.linkedin.com/in/ahmadhefny">See my LinkedIn profile</a></p>
+    </section>
+
+    <section id="career">
+      <div class="section-head">
+        <span class="label">Career</span>
+        <h2>From the pharmacy counter to fintech data</h2>
+      </div>
+      <div class="story">
+        <p>I graduated in pharmacy in 2020 and worked as a community pharmacist before choosing to start a career in data. Egypt FWD, a sponsored national program with Udacity, gave me the foundation, and I kept learning through DataCamp and Coursera.</p>
+        <p>My first data job was in hospital HR planning, where my work grew into reporting across the business. As a part-time pharmacist at the National Cancer Institute, I began building tools that people used in their work. At Beyond, I went on to automate reporting in insurance.</p>
+        <p>I joined Cashi for larger datasets, harder data problems and closer work with tech teams. Alongside that, I finished my computer science diploma in 2026 by coding PharmAssist.</p>
+      </div>
+      <div class="gantt">
+        <div class="axis" aria-hidden="true">
+          <span></span>
+          <div class="ticks">
+            <span style="left:0">2020</span>
+            <span style="left:14.29%">2021</span>
+            <span style="left:28.57%">2022</span>
+            <span style="left:42.86%">2023</span>
+            <span style="left:57.14%">2024</span>
+            <span style="left:71.43%">2025</span>
+            <span style="left:85.71%">2026</span>
+          </div>
+        </div>
+        <div class="role">
+          <div class="role-text">
+            <span class="mono">07/2025 to present</span>
+            <h3>Data Analyst</h3>
+            <span class="where">Cashi, mobile payments in Sudan and Chad</span>
+            <p class="desc">Dashboards in Looker Studio and Metabase, SQL on Amazon Redshift, automated reporting, deep-dive analysis, target lists and campaign measurement.</p>
+          </div>
+          <div class="track" role="img" aria-label="July 2025 to present"><div class="bar now" style="left:78.57%;width:19.05%"></div></div>
+        </div>
+        <div class="role">
+          <div class="role-text">
+            <span class="mono">08/2023 to 07/2025</span>
+            <h3>Utilization Data Analyst</h3>
+            <span class="where">Beyond Insurance Brokerage, Cairo</span>
+            <p class="desc">Followed customer utilization to support wellness programs, detect fraud or abuse, and manage loss ratios. Automated dashboards and built the data model in BigQuery.</p>
+          </div>
+          <div class="track" role="img" aria-label="August 2023 to July 2025"><div class="bar" style="left:51.19%;width:27.38%"></div></div>
+        </div>
+        <div class="role">
+          <div class="role-text">
+            <span class="mono">03/2023 to 07/2025 · part time</span>
+            <h3>Pharmacist / Data Analyst</h3>
+            <span class="where">National Cancer Institute, Cairo</span>
+            <p class="desc">Built a Python label app still in daily use, plus AppSheet tools for clinical data such as medication errors and Khorana scores, connected to Looker Studio dashboards.</p>
+          </div>
+          <div class="track" role="img" aria-label="March 2023 to July 2025, part time"><div class="bar part" style="left:45.24%;width:33.33%"></div></div>
+        </div>
+        <div class="role">
+          <div class="role-text">
+            <span class="mono">06/2022 to 03/2023</span>
+            <h3>Business Data Analyst</h3>
+            <span class="where">Al Andalusia Maadi Hospital, Cairo</span>
+            <p class="desc">Based in HR planning. Calculated productivity for medical staff, marketing and sales, built Excel dashboards, and delivered analysis for executive weekly reviews.</p>
+          </div>
+          <div class="track" role="img" aria-label="June 2022 to March 2023"><div class="bar" style="left:34.52%;width:10.71%"></div></div>
+        </div>
+        <div class="role">
+          <div class="role-text">
+            <span class="mono">12/2020 to 01/2022</span>
+            <h3>Community Pharmacist</h3>
+            <span class="where">ElEzaby</span>
+          </div>
+          <div class="track" role="img" aria-label="December 2020 to January 2022"><div class="bar" style="left:13.1%;width:15.48%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <span class="label">Skills</span>
+        <h2>My toolkit, modeled as a star schema</h2>
+        <p>Experience sits in the fact table. The tools are the dimensions around it.</p>
+      </div>
+      <div class="schema">
+        <div class="tbl dim l d1">
+          <header>dim_reporting_bi</header>
+          <ul>
+            <li>Looker Studio</li>
+            <li>Power BI <small>DAX, data modeling</small></li>
+            <li>Metabase</li>
+            <li>Excel <small>Power Query, advanced functions</small></li>
+          </ul>
+        </div>
+        <div class="tbl fact">
+          <header>fact_experience</header>
+          <ul>
+            <li><b>4+</b> <small>years of experience</small></li>
+            <li><b>600M+</b> <small>records in high-volume datasets</small></li>
+            <li><b>3</b> <small>industries: fintech, insurance, healthcare</small></li>
+          </ul>
+        </div>
+        <div class="tbl dim r d2">
+          <header>dim_data</header>
+          <ul>
+            <li>SQL <small>Amazon Redshift, BigQuery, query optimization</small></li>
+            <li>Data modeling <small>Star schema, fact-dimension design</small></li>
+            <li>Airflow <small>Early experience: two DAGs built</small></li>
+            <li>dbt <small>Currently learning</small></li>
+          </ul>
+        </div>
+        <div class="tbl dim l d3">
+          <header>dim_programming</header>
+          <ul>
+            <li>Python <small>Pandas, gspread, PyAutoGUI, Tkinter, Django, automation</small></li>
+            <li>PowerShell <small>Scheduled report automation</small></li>
+          </ul>
+        </div>
+        <div class="tbl dim r d4">
+          <header>dim_other_tools</header>
+          <ul>
+            <li>Google Analytics</li>
+            <li>Google Sheets and AppSheet</li>
+            <li>Claude <small>AI in reporting automation</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <span class="label">Education</span>
+        <h2>Pharmacy, computer science and continued training</h2>
+      </div>
+      <div class="creds">
+        <div>
+          <span class="label">Degrees</span>
+          <ul>
+            <li><b>Post Graduate Diploma, Computer Science</b><span>Faculty of Graduate Studies for Statistical Research, Cairo University, class of 2026. Graduation project graded 99/100</span></li>
+            <li><b>Bachelor's degree in Pharmacy</b><span>Faculty of Pharmacy, Cairo University, class of 2020</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Courses and certificates</span>
+          <ul>
+            <li><b>Advanced Data Analysis Nanodegree</b><span>Udacity, Egypt FWD. Statistics, A/B testing, SQL and Tableau coursework</span></li>
+            <li><b>Data Analysis Challenger Nanodegree</b><span>Udacity, Egypt FWD. Excel, business metrics and descriptive statistics</span></li>
+            <li><b>Intermediate Python</b><span>DataCamp</span></li>
+            <li><b>Data Manipulation with Pandas</b><span>DataCamp</span></li>
+            <li><b>Data Visualization in Power BI</b><span>DataCamp</span></li>
+            <li><b>Exploratory Data Analysis in SQL</b><span>DataCamp</span></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Languages</span>
+          <ul>
+            <li><b>Arabic</b><span>Native</span></li>
+            <li><b>English</b><span>Advanced</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <span class="label">Contact</span>
+      <h2>Let's talk data</h2>
+      <p class="contact-sub">Questions about my work, or a data project you'd like to discuss? Email me or message me on LinkedIn.</p>
+      <div class="contact-row">
+        <span id="email">ahmedhafney11@gmail.com</span>
+        <button class="btn" id="copy-email" type="button">Copy email</button>
+      </div>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/ahmadhefny">linkedin.com/in/ahmadhefny</a>
+        <span>El-Sheikh Zayed, Giza, Egypt</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>Ahmed Mohamed Hefny · Data Analyst</footer>
+</div>
+
+<script>
+(function () {
+  var button = document.getElementById('copy-email');
+  var email = document.getElementById('email');
+  function selectEmail() {
+    var range = document.createRange();
+    range.selectNodeContents(email);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    button.textContent = 'Press Ctrl+C to copy';
+  }
+  button.addEventListener('click', function () {
+    if (!navigator.clipboard) { selectEmail(); return; }
+    navigator.clipboard.writeText(email.textContent).then(function () {
+      button.textContent = 'Copied';
+      setTimeout(function () { button.textContent = 'Copy email'; }, 2000);
+    }).catch(selectEmail);
+  });
+})();
+</script>
+
+</body>
+</html>
